@@ -1,11 +1,18 @@
-import React from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ChoseMe from "./ChoseMe";
 import Item from "./Item";
 import ServiceTime from "./ServiceTime";
 
 const Home = () => {
-  const items = useLoaderData();
+  const [items, setItems] = useState();
+  useEffect(() => {
+    fetch("http://localhost:5000/sortcategory")
+      .then((res) => res.json())
+      .then((data) => {
+        setItems(data);
+      });
+  }, []);
   console.log(items);
   return (
     <div className="mt-12  lg:w-10/12 mx-auto">

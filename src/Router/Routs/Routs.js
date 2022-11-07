@@ -5,6 +5,7 @@ import Register from "../../Pages/Authrncition/Register/Register";
 import Home from "../../Pages/Home/Home";
 import Blogs from "../../Pages/Blogs/Blogs";
 import Service from "../../Pages/Service/Service";
+import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 
 const router = createBrowserRouter([
   {
@@ -18,12 +19,17 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:5000/sortcategory"),
       },
       {
         path: "/services",
         element: <Service></Service>,
         loader: () => fetch("http://localhost:5000/category"),
+      },
+      {
+        path: "/service/:id",
+        element: <ServiceDetails></ServiceDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/category/${params.id}`),
       },
       {
         path: "/blogs",
