@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import ChoseMe from "./ChoseMe";
 import Item from "./Item";
 import ServiceTime from "./ServiceTime";
 
@@ -7,9 +8,9 @@ const Home = () => {
   const items = useLoaderData();
   console.log(items);
   return (
-    <div className="mt-12 w-10/12 mx-auto">
+    <div className="mt-12  lg:w-10/12 mx-auto">
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-        {items.map((item) => (
+        {items?.map((item) => (
           <Item key={item._id} item={item}></Item>
         ))}
       </div>
@@ -20,6 +21,9 @@ const Home = () => {
       </div>
       <div>
         <ServiceTime></ServiceTime>
+      </div>
+      <div>
+        <ChoseMe></ChoseMe>
       </div>
     </div>
   );
