@@ -43,7 +43,7 @@ const Header = () => {
                 <Link to={"/home"}>Home</Link>
               </li>
               <li>
-                <Link to={"/service"} className="">
+                <Link to={"/services"} className="">
                   Service
                 </Link>
               </li>
@@ -72,7 +72,7 @@ const Header = () => {
               )}
             </ul>
           </div>
-          <Link className="w-14">
+          <Link to={"/"} className="w-14">
             <img src={logo} alt="" />
           </Link>
         </div>
@@ -82,7 +82,7 @@ const Header = () => {
               <Link to={"/home"}>Home</Link>
             </li>
             <li>
-              <Link to={"/service"}>Service</Link>
+              <Link to={"/services"}>Service</Link>
             </li>
             <li>
               <Link to={"/blogs"}>Blogs</Link>

@@ -1,26 +1,28 @@
-import React from 'react';
-
+import React from "react";
+import { Link, useLoaderData } from "react-router-dom";
+import Item from "./Item";
+import ServiceTime from "./ServiceTime";
 
 const Home = () => {
-    return (
-      <div
-        className="hero min-h-screen"
-        style={{ backgroundImage: `url("https://placeimg.com/1000/800/arch")` }}
-      >
-        <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-            <p className="mb-5">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <button className="btn btn-primary">Get Started</button>
-          </div>
-        </div>
+  const items = useLoaderData();
+  console.log(items);
+  return (
+    <div className="mt-12 w-10/12 mx-auto">
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        {items.map((item) => (
+          <Item key={item._id} item={item}></Item>
+        ))}
       </div>
-    );
+      <div className="mb-12 mt-12">
+        <Link to={"/services"}>
+          <button className="btn btn-primary justify-center">See All</button>
+        </Link>
+      </div>
+      <div>
+        <ServiceTime></ServiceTime>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
