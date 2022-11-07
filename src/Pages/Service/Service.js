@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import Products from "./Products";
 
-const Shop = () => {
+const Service = () => {
   const products = useLoaderData();
   console.log(products);
   return (
@@ -16,4 +16,4 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+export default Service;

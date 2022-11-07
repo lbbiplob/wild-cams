@@ -3,8 +3,8 @@ import Main from "../../Layouts/Main";
 import Login from "../../Pages/Authrncition/Login/Login";
 import Register from "../../Pages/Authrncition/Register/Register";
 import Home from "../../Pages/Home/Home";
-import Orders from "../../Pages/Orders/Orders";
-import Shop from "../../Pages/Shop/Shop";
+import Blogs from "../../Pages/Blogs/Blogs";
+import Service from "../../Pages/Service/Service";
 
 const router = createBrowserRouter([
   {
@@ -20,13 +20,13 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/shop",
-        element: <Shop></Shop>,
+        path: "/service",
+        element: <Service></Service>,
         loader: () => fetch("http://localhost:5000/products"),
       },
       {
-        path: "/orders",
-        element: <Orders></Orders>,
+        path: "/blogs",
+        element: <Blogs></Blogs>,
       },
       {
         path: "/register",

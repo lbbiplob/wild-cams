@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import userIcon from "../../../images/user-icon.png";
+import logo from "../../../images/logo.png";
 
 const Header = () => {
   const { logOut, user } = useContext(AuthContext);
@@ -41,22 +43,38 @@ const Header = () => {
                 <Link to={"/home"}>Home</Link>
               </li>
               <li>
-                <Link to={"/shop"} className="">
-                  Shop{" "}
+                <Link to={"/service"} className="">
+                  Service
                 </Link>
               </li>
               <li>
-                <Link to={"/order"}>Order</Link>
+                <Link to={"/Blogs"}>Blogs</Link>
               </li>
-              <li>
-                <Link to={"/register"}>Register</Link>
-              </li>
-              <li>
-                <Link to={"/login"}>Login</Link>
-              </li>
+              {user?.uid ? (
+                <>
+                  {" "}
+                  <li>
+                    <Link to={"/myreview"}>My review</Link>
+                  </li>
+                  <li>
+                    <Link onClick={handelLogOut}>Logout</Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to={"/register"}>Register</Link>
+                  </li>
+                  <li>
+                    <Link to={"/login"}>Login</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
-          <Link className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+          <Link className="w-14">
+            <img src={logo} alt="" />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal p-0">
@@ -64,40 +82,46 @@ const Header = () => {
               <Link to={"/home"}>Home</Link>
             </li>
             <li>
-              <Link to={"/shop"}>Shop</Link>
+              <Link to={"/service"}>Service</Link>
             </li>
             <li>
-              <Link to={"/orders"}>Orders</Link>
+              <Link to={"/blogs"}>Blogs</Link>
             </li>
           </ul>
         </div>
         <div className="navbar-end ">
           <div className="menu menu-horizontal p-0 hidden lg:flex">
-            <li>
-              <Link to={"/register"}>Register</Link>
-            </li>
-            <li>
-              <Link to={"/login"}>Login</Link>
-            </li>
+            {user?.uid ? (
+              <>
+                {" "}
+                <li>
+                  <Link to={"/myreview"}>My review</Link>
+                </li>
+                <li>
+                  <Link onClick={handelLogOut}>Logout</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to={"/register"}>Register</Link>
+                </li>
+                <li>
+                  <Link to={"/login"}>Login</Link>
+                </li>
+              </>
+            )}
           </div>
-          <div className="dropdown dropdown-end ">
+          <div className=" ">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img alt="" src={user?.photoURL} />
+                {user?.uid ? (
+                  <img alt="" src={user?.photoURL} />
+                ) : (
+                  <img alt="" src={userIcon} />
+                )}
               </div>
             </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <Link className="justify-between">Profile</Link>
-              </li>
-
-              <li>
-                <Link onClick={handelLogOut}>Logout</Link>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
