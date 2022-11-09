@@ -1,8 +1,14 @@
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 import Review from "./Review";
 
 const ServiceDetails = () => {
   const serviceDetails = useLoaderData();
+  const { loading } = useContext(AuthContext);
+  if (loading) {
+    return <button className="btn loading">loading</button>;
+  }
   const { img, price, name, details } = serviceDetails;
 
   return (

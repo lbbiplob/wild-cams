@@ -3,34 +3,25 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import ReviewsInfo from "./ReviewsInfo";
 
 const Review = ({ serviceDetails }) => {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [reviewInfo, setReviewInfo] = useState();
   const { name, _id } = serviceDetails;
-
-  useEffect(() => {
-    fetch("http://localhost:5000/reviews")
-      .then((res) => res.json())
-      .then((data) => {
-        setReviewInfo(data);
-      });
-  }, [reviewInfo]);
-  if (loading) {
-    return <p>loading......</p>;
-  }
+  console.log(name);
 
   const infos = reviewInfo?.filter((info) => info?.service === _id);
 
   const handelReview = (event) => {
     event.preventDefault();
     const form = event.target;
-    const name = form.name.value;
+    const fullName = form.name.value;
     const email = form.email.value;
     const phone = form.phone.value;
     const massage = form.textarea.value;
     console.log(name, email, phone, massage);
     const reviewInfo = {
       service: _id,
-      customer: name,
+      serviceName: name,
+      customer: fullName,
       email,
       phone,
       massage,
@@ -46,15 +37,18 @@ const Review = ({ serviceDetails }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          const newReview = [...reviewInfo, data];
-          setReviewInfo(newReview);
           form.reset();
         }
-        console.log(data);
       })
       .catch((error) => console.error(error));
   };
-
+  useEffect(() => {
+    fetch("http://localhost:5000/reviews")
+      .then((res) => res.json())
+      .then((data) => {
+        setReviewInfo(data);
+      });
+  }, []);
   return (
     <div>
       <div>
