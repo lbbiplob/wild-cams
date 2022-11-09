@@ -1,10 +1,10 @@
-import React from "react";
 import { useLoaderData } from "react-router-dom";
 import Review from "./Review";
 
 const ServiceDetails = () => {
   const serviceDetails = useLoaderData();
-  const { img, price, name, details, _id } = serviceDetails;
+  const { img, price, name, details } = serviceDetails;
+
   return (
     <div>
       <div className="card lg:card-side grid grid-cols-1 lg:grid-cols-2 lg:w-8/12 w-11/12 mx-auto bg-base-100 shadow-xl">
