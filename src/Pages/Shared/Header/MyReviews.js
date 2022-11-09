@@ -5,7 +5,6 @@ import MyReviewInfo from "./MyReviewInfo";
 const MyReviews = () => {
   const { user, loading } = useContext(AuthContext);
   const [reviews, setReviews] = useState();
-  console.log(reviews);
 
   useEffect(() => {
     fetch(`http://localhost:5000/reviews?email=${user?.email}`)
@@ -18,15 +17,22 @@ const MyReviews = () => {
   if (loading) {
     return <button className="btn loading">loading</button>;
   }
-
+  // const handelmassage = (event) => {
+  //   const value = event.target.value;
+  // };
   const handelEdit = (id) => {
-    console.log("click");
-    const confirm = window.confirm("Are your sure delete this review");
-    console.log(confirm);
-    fetch(`http://localhost:5000/reviews/${id}`);
+    // const confirm = window.confirm("Are your sure delete this review");
+    // if (confirm) {
+    //   fetch(`http://localhost:5000/reviews/${id}`, {
+    //     method: "PATCH",
+    //     headers: {
+    //       "content-type": "application/json",
+    //     },
+    //   });
+    // }
   };
 
-  //   this is remove review faction
+  // this is remove review faction
   const handelDelete = (id) => {
     const confirm = window.confirm("Are your sure delete this review");
     console.log(confirm);

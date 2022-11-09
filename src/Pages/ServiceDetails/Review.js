@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import ReviewsInfo from "./ReviewsInfo";
 
 const Review = ({ serviceDetails }) => {
   const { user } = useContext(AuthContext);
   const [reviewInfo, setReviewInfo] = useState();
-  const { name, _id } = serviceDetails;
-  console.log(name);
+  const location = useLocation();
 
-  const infos = reviewInfo?.filter((info) => info?.service === _id);
+  const infos = reviewInfo?.filter(
+    (info) => info?.service === serviceDetails._id
+  );
 
   const handelReview = (event) => {
     event.preventDefault();
@@ -17,30 +19,31 @@ const Review = ({ serviceDetails }) => {
     const email = form.email.value;
     const phone = form.phone.value;
     const massage = form.textarea.value;
-    console.log(name, email, phone, massage);
     const reviewInfo = {
-      service: _id,
-      serviceName: name,
+      service: serviceDetails?._id,
+      serviceName: serviceDetails?.name,
       customer: fullName,
       email,
       phone,
       massage,
-      photo: user.photoURL,
+      photo: user?.photoURL,
     };
-    fetch("http://localhost:5000/reviews", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(reviewInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          form.reset();
-        }
+    if (user) {
+      fetch("http://localhost:5000/reviews", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(reviewInfo),
       })
-      .catch((error) => console.error(error));
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            form.reset();
+          }
+        })
+        .catch((error) => console.error(error));
+    }
   };
   useEffect(() => {
     fetch("http://localhost:5000/reviews")
@@ -48,7 +51,7 @@ const Review = ({ serviceDetails }) => {
       .then((data) => {
         setReviewInfo(data);
       });
-  }, []);
+  }, [reviewInfo]);
   return (
     <div>
       <div>
@@ -58,14 +61,16 @@ const Review = ({ serviceDetails }) => {
         >
           <div>
             <h1 className="text-4xl font-bold">Review</h1>
-            <h2 className="text-2xl font-bold mt-12">Service Name: {name}</h2>
+            <h2 className="text-2xl font-bold mt-12">
+              Service Name: {serviceDetails?.name}
+            </h2>
           </div>
           <div className="lg:flex  lg:justify-between mt-12">
             <input
               type="text"
               placeholder="full name"
               name="name"
-              defaultValue={user?.displayName ? user?.displayName : " "}
+              defaultValue={user?.displayName}
               className="input input-bordered input-info lg:w-8/12 mt-2 lg:mr-2 w-full "
               required
             />
@@ -102,6 +107,22 @@ const Review = ({ serviceDetails }) => {
             type="submit"
             value="Submit"
           />
+
+          {user?.email ? (
+            ""
+          ) : (
+            <p className="m-4">
+              Add a review please{" "}
+              <Link
+                className="link link-info"
+                to={"/login"}
+                state={{ from: location }}
+                replace
+              >
+                Login
+              </Link>{" "}
+            </p>
+          )}
         </form>
       </div>
       <div>
