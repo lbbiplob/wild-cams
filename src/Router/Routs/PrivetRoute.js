@@ -4,7 +4,10 @@ import { AuthContext } from "../../Pages/AuthProvider/AuthProvider";
 
 const PrivetRoute = ({ children }) => {
   const location = useLocation();
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
+  if (loading) {
+    return <button className="btn loading ">loading</button>;
+  }
   if (user && user.email) {
     return children;
   }

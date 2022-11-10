@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
+import useTitle from "../../useTitle/useTitle";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Review from "./Review";
 
 const ServiceDetails = () => {
+  useTitle("Details&Reviews");
   const serviceDetails = useLoaderData();
   const { loading } = useContext(AuthContext);
   if (loading) {

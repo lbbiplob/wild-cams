@@ -60,6 +60,15 @@ const MyReviews = () => {
     <div className="lg:w-8/12 w-10/12 mx-auto mt-12">
       <div>
         <h2 className="text-2xl font-bold mb-10">Your Reviews</h2>
+      </div>
+      <div>
+        {reviews?.length === 0 ? (
+          <p className="text-lg font-bold">No reviews were added</p>
+        ) : (
+          ""
+        )}
+      </div>
+      <div>
         {reviews?.map((review) => (
           <MyReviewInfo
             key={review._id}

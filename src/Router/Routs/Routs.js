@@ -9,6 +9,8 @@ import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 import ErrorPath from "../../Pages/ErrorPath/ErrorPath";
 import MyReviews from "../../Pages/Shared/Header/MyReviews";
 import PrivetRoute from "./PrivetRoute";
+import AddService from "../../Pages/AddService/AddService";
+import AddAllServiceDatails from "../../Pages/Service/AddAllServiceDatails";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,12 @@ const router = createBrowserRouter([
           fetch(`http://localhost:5000/category/${params.id}`),
       },
       {
+        path: "/services/:id",
+        element: <AddAllServiceDatails></AddAllServiceDatails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/services/${params.id}`),
+      },
+      {
         path: "/blogs",
         element: <Blogs></Blogs>,
       },
@@ -51,6 +59,14 @@ const router = createBrowserRouter([
         element: (
           <PrivetRoute>
             <MyReviews></MyReviews>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/addservice",
+        element: (
+          <PrivetRoute>
+            <AddService></AddService>
           </PrivetRoute>
         ),
       },

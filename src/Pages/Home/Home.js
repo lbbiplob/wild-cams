@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useTitle from "../../useTitle/useTitle";
+import Banner from "./Banner";
 import ChoseMe from "./ChoseMe";
 import Item from "./Item";
 import ServiceTime from "./ServiceTime";
 
 const Home = () => {
+  useTitle("Home");
   const [items, setItems] = useState();
   useEffect(() => {
     fetch("http://localhost:5000/sortcategory")
@@ -16,6 +19,9 @@ const Home = () => {
   console.log(items);
   return (
     <div className="mt-12  lg:w-10/12 mx-auto">
+      <div>
+        <Banner></Banner>
+      </div>
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         {items?.map((item) => (
           <Item key={item._id} item={item}></Item>

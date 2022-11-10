@@ -57,6 +57,9 @@ const Header = () => {
                     <Link to={"/myreview"}>My review</Link>
                   </li>
                   <li>
+                    <Link to={"/addservice"}>Add Service</Link>
+                  </li>
+                  <li>
                     <Link onClick={handelLogOut}>Logout</Link>
                   </li>
                 </>
@@ -96,6 +99,9 @@ const Header = () => {
                 {" "}
                 <li>
                   <Link to={"/myreview"}>My review</Link>
+                </li>
+                <li>
+                  <Link to={"/addservice"}>Add Service</Link>
                 </li>
                 <li>
                   <Link onClick={handelLogOut}>Logout</Link>
