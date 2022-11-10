@@ -1,12 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 const Item = ({ item }) => {
   const { name, details, img, price, _id } = item;
   return (
     <div className="card card-compact w-80 mx-auto lg:w-96 bg-base-100 shadow-xl">
       <figure>
-        <img src={img} alt={name} />
+        <PhotoProvider>
+          <PhotoView src={img}>
+            <img className="rounded" src={img} alt={name} />
+          </PhotoView>
+        </PhotoProvider>
       </figure>
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
