@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import useTitle from "../../useTitle/useTitle";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const AddService = () => {
+  useTitle("Add service");
   const { user } = useContext(AuthContext);
-  const [services, setServices] = useState();
+  const location = useLocation();
+  // const [services, setServices] = useState();
   console.log(user.email);
 
   const handelAddService = (event) => {
@@ -40,14 +44,14 @@ const AddService = () => {
       })
       .catch((error) => console.error(error));
   };
-  useEffect(() => {
-    fetch("http://localhost:5000/reviews")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setServices(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/reviews")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       // setServices(data);
+  //     });
+  // }, []);
   return (
     <div>
       <div>
