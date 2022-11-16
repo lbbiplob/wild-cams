@@ -19,21 +19,22 @@ const AuthProvider = ({ children }) => {
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
-
+  // google login
   const googleLogIn = (provider) => {
     setLoading(true);
     return signInWithPopup(auth, provider);
   };
-
+  // email password login
   const logIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
+  // logout
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
   };
-
+  // hold user info
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -41,7 +42,7 @@ const AuthProvider = ({ children }) => {
     });
     return () => unsubscribe();
   }, []);
-
+  // auth context value
   const authInfo = {
     user,
     createUser,

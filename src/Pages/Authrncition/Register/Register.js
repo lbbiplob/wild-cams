@@ -6,7 +6,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 const Register = () => {
   useTitle("Register");
   const { createUser } = useContext(AuthContext);
-
+  // email password register
   const handelRegiser = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -21,6 +21,9 @@ const Register = () => {
   };
   return (
     <div className="card mx-auto p-3 m-9 w-full max-w-lg shadow-2xl bg-base-100">
+      <div className="text-center mt-8  ">
+        <h1 className="text-5xl font-bold">Please Register</h1>
+      </div>
       <form onSubmit={handelRegiser} className="card-body">
         <div className="form-control">
           <label className="label">

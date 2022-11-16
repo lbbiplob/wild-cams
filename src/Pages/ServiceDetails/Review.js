@@ -13,6 +13,8 @@ const Review = ({ serviceDetails }) => {
     (info) => info?.service === serviceDetails._id
   );
 
+  // this is user review section
+
   const handelReview = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -47,6 +49,8 @@ const Review = ({ serviceDetails }) => {
         .catch((error) => console.error(error));
     }
   };
+
+  // all review
   useEffect(() => {
     fetch("https://react-assingment-11-backend.vercel.app/reviews")
       .then((res) => res.json())

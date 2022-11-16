@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
+  // google login
   const handelGoogleLogin = () => {
     googleLogIn(provider)
       .then((result) => {
@@ -26,7 +26,7 @@ const Login = () => {
         setError(error.massage);
       });
   };
-
+  // email password login
   const handelLogIn = (event) => {
     event.preventDefault();
     const form = event.target;

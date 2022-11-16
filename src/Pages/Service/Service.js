@@ -11,6 +11,7 @@ const Service = () => {
   useTitle("Services");
 
   const [products, setProducts] = useState();
+  // load all service
   useEffect(() => {
     fetch("https://react-assingment-11-backend.vercel.app/category")
       .then((res) => res.json())
