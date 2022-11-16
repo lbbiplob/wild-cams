@@ -10,7 +10,7 @@ const MyReviews = () => {
   useTitle("My Reviews");
   const { user, loading } = useContext(AuthContext);
   const [reviews, setReviews] = useState();
-
+  // my reviews filter by email
   useEffect(() => {
     fetch(
       `https://react-assingment-11-backend.vercel.app/reviews?email=${user?.email}`
@@ -23,7 +23,7 @@ const MyReviews = () => {
   if (loading) {
     return <button className="btn loading">loading</button>;
   }
-
+  // review massage edit
   const handelEditReview = (event, id) => {
     event.preventDefault();
     const form = event.target;

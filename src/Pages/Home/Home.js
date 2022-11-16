@@ -33,9 +33,12 @@ const Home = () => {
   console.log(items);
   return (
     <div className="mt-12  lg:w-10/12 mx-auto">
+      {/* banner section  */}
       <div>
         <Banner></Banner>
       </div>
+
+      {/* home page 3 service  */}
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         {items?.map((item) => (
           <Item key={item._id} item={item}></Item>
@@ -46,6 +49,7 @@ const Home = () => {
           <button className="btn btn-primary justify-center">See All</button>
         </Link>
       </div>
+      {/* user added service  */}
       <div className="mb-12">
         <div>
           {services?.length > 0 ? (
