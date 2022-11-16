@@ -8,6 +8,7 @@ const ServiceDetails = () => {
   useTitle("Details&Reviews");
   const serviceDetails = useLoaderData();
   const { loading } = useContext(AuthContext);
+
   if (loading) {
     return <button className="btn loading">loading</button>;
   }
@@ -23,9 +24,6 @@ const ServiceDetails = () => {
           <h2 className="card-title">{name}</h2>
           <p>{details}</p>
           <p className="text-amber-400 font-bold">Price: ${price}</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Listen</button>
-          </div>
         </div>
       </div>
       <div>

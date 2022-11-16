@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useContext } from "react";
+import { toast } from "react-toastify";
 import useTitle from "../../useTitle/useTitle";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const AddService = () => {
   useTitle("Add service");
   const { user } = useContext(AuthContext);
-  const location = useLocation();
-  // const [services, setServices] = useState();
+
   console.log(user.email);
 
   const handelAddService = (event) => {
@@ -16,42 +15,38 @@ const AddService = () => {
     const fullName = form.name.value;
     const email = form.email.value;
     const title = form.title.value;
-    const photo = form.photo.value;
+    const img = form.photo.value;
     const price = form.price.value;
     const details = form.textarea.value;
     const serviceInfos = {
       fullName,
       email,
-      title,
-      photo,
+      name: title,
+      img,
       price,
       details,
     };
     console.log(serviceInfos);
-    fetch("http://localhost:5000/services", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(serviceInfos),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          form.reset();
-        }
-        console.log(data);
+    if (user.email) {
+      fetch("https://react-assingment-11-backend.vercel.app/services", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(serviceInfos),
       })
-      .catch((error) => console.error(error));
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast("Service added check homepage");
+            form.reset();
+          }
+          console.log(data);
+        })
+        .catch((error) => console.error(error));
+    }
   };
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/reviews")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       // setServices(data);
-  //     });
-  // }, []);
+
   return (
     <div>
       <div>

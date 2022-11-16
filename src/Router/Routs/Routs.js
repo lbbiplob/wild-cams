@@ -7,10 +7,10 @@ import Blogs from "../../Pages/Blogs/Blogs";
 import Service from "../../Pages/Service/Service";
 import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 import ErrorPath from "../../Pages/ErrorPath/ErrorPath";
-import MyReviews from "../../Pages/Shared/Header/MyReviews";
 import PrivetRoute from "./PrivetRoute";
 import AddService from "../../Pages/AddService/AddService";
 import AddAllServiceDatails from "../../Pages/Service/AddAllServiceDatails";
+import MyReviews from "../../Pages/MyReviews/MyReviews";
 
 const router = createBrowserRouter([
   {
@@ -28,19 +28,24 @@ const router = createBrowserRouter([
       {
         path: "/services",
         element: <Service></Service>,
-        loader: () => fetch("http://localhost:5000/category"),
+        loader: () =>
+          fetch("https://react-assingment-11-backend.vercel.app/category"),
       },
       {
         path: "/service/:id",
         element: <ServiceDetails></ServiceDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`),
+          fetch(
+            `https://react-assingment-11-backend.vercel.app/category/${params.id}`
+          ),
       },
       {
         path: "/services/:id",
         element: <AddAllServiceDatails></AddAllServiceDatails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/services/${params.id}`),
+          fetch(
+            `https://react-assingment-11-backend.vercel.app/services/${params.id}`
+          ),
       },
       {
         path: "/blogs",

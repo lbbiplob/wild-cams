@@ -12,7 +12,7 @@ const Service = () => {
 
   const [products, setProducts] = useState();
   useEffect(() => {
-    fetch("http://localhost:5000/category")
+    fetch("https://react-assingment-11-backend.vercel.app/category")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

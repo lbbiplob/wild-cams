@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import ReviewsInfo from "./ReviewsInfo";
+import { toast } from "react-toastify";
 
 const Review = ({ serviceDetails }) => {
   const { user } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const Review = ({ serviceDetails }) => {
       photo: user?.photoURL,
     };
     if (user) {
-      fetch("http://localhost:5000/reviews", {
+      fetch("https://react-assingment-11-backend.vercel.app/reviews", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -39,6 +40,7 @@ const Review = ({ serviceDetails }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.acknowledged) {
+            toast("Review added");
             form.reset();
           }
         })
@@ -46,7 +48,7 @@ const Review = ({ serviceDetails }) => {
     }
   };
   useEffect(() => {
-    fetch("http://localhost:5000/reviews")
+    fetch("https://react-assingment-11-backend.vercel.app/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviewInfo(data);
@@ -78,7 +80,7 @@ const Review = ({ serviceDetails }) => {
               type="email"
               placeholder="email"
               name="email"
-              defaultValue={user?.displayName ? user?.email : " "}
+              defaultValue={user?.email ? user?.email : " "}
               className="input input-bordered input-info w-full mt-2 lg:ml-2 lg:w-8/12 "
               readOnly
               required

@@ -14,19 +14,22 @@ const Home = () => {
   const [services, setServices] = useState();
   const [items, setItems] = useState();
   useEffect(() => {
-    fetch("http://localhost:5000/sortcategory")
+    fetch("https://react-assingment-11-backend.vercel.app/sortcategory")
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
       });
   }, []);
   useEffect(() => {
-    fetch(`http://localhost:5000/services?email=${user?.email}`)
+    fetch(
+      `https://react-assingment-11-backend.vercel.app/services?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
       });
   }, [user?.email]);
+
   console.log(items);
   return (
     <div className="mt-12  lg:w-10/12 mx-auto">
@@ -44,8 +47,15 @@ const Home = () => {
         </Link>
       </div>
       <div className="mb-12">
-        <div className="mt-12">
+        <div>
           {services?.length > 0 ? (
+            <h2 className="font-bold text-4xl">Your Added services</h2>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="mt-12">
+          {user?.email && services?.length > 0 ? (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 {services?.map((service) => (

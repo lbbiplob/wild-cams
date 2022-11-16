@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import useTitle from "../../../useTitle/useTitle";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import useTitle from "../../useTitle/useTitle";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import MyReviewInfo from "./MyReviewInfo";
 
 const MyReviews = () => {
@@ -9,29 +12,46 @@ const MyReviews = () => {
   const [reviews, setReviews] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+    fetch(
+      `https://react-assingment-11-backend.vercel.app/reviews?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
-        console.log(data);
       });
-  }, [user?.email]);
+  }, [user?.email, reviews]);
   if (loading) {
     return <button className="btn loading">loading</button>;
   }
-  // const handelmassage = (event) => {
-  //   const value = event.target.value;
-  // };
-  const handelEdit = (id) => {
-    // const confirm = window.confirm("Are your sure delete this review");
-    // if (confirm) {
-    //   fetch(`http://localhost:5000/reviews/${id}`, {
-    //     method: "PATCH",
-    //     headers: {
-    //       "content-type": "application/json",
-    //     },
-    //   });
-    // }
+
+  const handelEditReview = (event, id) => {
+    event.preventDefault();
+    const form = event.target;
+    const editValue = form.massage.value;
+    console.log(editValue);
+
+    if (editValue) {
+      fetch(`https://react-assingment-11-backend.vercel.app/reviews/${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ massage: editValue }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.acknowledged) {
+            const remainingEdit = reviews.filter((review) => review._id !== id);
+            const editReview = reviews.find((review) => review._id === id);
+            const newReviews = [editReview, ...remainingEdit];
+            toast("Edit Successful");
+            form.reset();
+
+            setReviews(newReviews);
+          }
+        });
+    }
   };
 
   // this is remove review faction
@@ -39,13 +59,13 @@ const MyReviews = () => {
     const confirm = window.confirm("Are your sure delete this review");
     console.log(confirm);
     if (confirm) {
-      fetch(`http://localhost:5000/reviews/${id}`, {
+      fetch(`https://react-assingment-11-backend.vercel.app/reviews/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
-            alert("Delete Successful");
+            toast("Delete Successful");
             const remainingReviews = reviews.filter(
               (review) => review._id !== id
             );
@@ -75,7 +95,7 @@ const MyReviews = () => {
           <MyReviewInfo
             key={review._id}
             handelDelete={handelDelete}
-            handelEdit={handelEdit}
+            handelEditReview={handelEditReview}
             review={review}
           ></MyReviewInfo>
         ))}

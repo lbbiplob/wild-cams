@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import userIcon from "../../../images/user-icon.png";
 import logo from "../../../images/logo.png";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const { logOut, user } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const Header = () => {
   const handelLogOut = () => {
     logOut()
       .then((result) => {
-        alert("logout successFully");
+        toast("Logout Successful");
       })
       .catch((error) => {});
   };

@@ -1,6 +1,4 @@
-import React from "react";
-
-const MyReviewInfo = ({ review, handelDelete, handelEdit }) => {
+const MyReviewInfo = ({ review, handelDelete, handelEditReview }) => {
   const { customer, massage, photo, _id, serviceName } = review;
 
   return (
@@ -29,11 +27,7 @@ const MyReviewInfo = ({ review, handelDelete, handelEdit }) => {
                 {serviceName ? serviceName : ""}
               </td>
               <th>
-                <label
-                  htmlFor="my-modal"
-                  onClick={() => handelEdit(_id)}
-                  className="btn btn-ghost btn-xs"
-                >
+                <label htmlFor="my-modal-3" className="btn btn-ghost btn-xs">
                   Edit
                 </label>
               </th>
@@ -41,22 +35,29 @@ const MyReviewInfo = ({ review, handelDelete, handelEdit }) => {
           </tbody>
         </table>
       </div>
-
-      <div>
-        <input type="checkbox" id="my-modal" className="modal-toggle" />
-        <div className="modal">
-          <div className="modal-box">
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box relative">
+          <label
+            htmlFor="my-modal-3"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
+          <h3 className="text-lg font-bold">Write your edit review</h3>
+          <form onSubmit={(event) => handelEditReview(event, _id)}>
+            <textarea
+              name="massage"
+              className="textarea textarea-info w-1/2"
+              placeholder="your edit review"
+            ></textarea>{" "}
+            <br />
             <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered input-info w-full max-w-xs"
+              type="submit"
+              className="btn btn-primary mt-4"
+              value="Submit"
             />
-            <div className="modal-action">
-              <label htmlFor="my-modal" className="btn">
-                Yay!
-              </label>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

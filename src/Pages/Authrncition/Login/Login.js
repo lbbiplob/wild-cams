@@ -1,11 +1,13 @@
 import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useTitle from "../../../useTitle/useTitle";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
   useTitle("Login");
+  const [error, setError] = useState();
   const { logIn, googleLogIn } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
@@ -16,10 +18,13 @@ const Login = () => {
     googleLogIn(provider)
       .then((result) => {
         const user = result.user;
+        toast("Login Successful");
         navigate(from, { replace: true });
         console.log(user);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setError(error.massage);
+      });
   };
 
   const handelLogIn = (event) => {
@@ -30,23 +35,23 @@ const Login = () => {
     logIn(email, password)
       .then((result) => {
         const user = result.user;
+        toast("Login Successful");
+
         navigate(from, { replace: true });
         console.log(user);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setError(error);
+      });
   };
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row">
-        <div className="text-center lg:w-1/2 lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-        </div>
-        <div className="card  w-full max-w-lg shadow-2xl bg-base-100">
+    <div className="hero  bg-base-200">
+      <div className="hero-content ">
+        <div className="card shadow-2xl bg-base-100">
+          <div className="text-center mt-8  ">
+            <h1 className="text-5xl font-bold">Login now!</h1>
+          </div>
           <form onSubmit={handelLogIn} className="card-body">
             <div className="form-control">
               <label className="label">
@@ -80,6 +85,12 @@ const Login = () => {
                   </Link>
                 </span>
               </label>
+
+              {error ? (
+                <p className="text-orange-500">Email password not match</p>
+              ) : (
+                ""
+              )}
             </div>
             <div className="form-control mt-6">
               <button type="submit" className="btn btn-primary">
